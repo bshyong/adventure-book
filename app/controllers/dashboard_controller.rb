@@ -20,6 +20,8 @@ class DashboardController < ApplicationController
     @herMusic = @her.music
     @music = @user.music | @her.music
     @music.shuffle!
+    @movies = @user.movies.shuffle
+    @books = @user.books
 
     render :layout => false
   end

@@ -74,16 +74,25 @@
       }
 	  </script> 
         
-
    <div class="step" style="width:500px;height:700px;background:url('assets/img/musicFrame.png') no-repeat;overflow:none;" data-x="<%= (rand(5)*50) %>" data-y="<%= (rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
 
-		<div style="position:relative;top:142px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:center;width:400px;left:33px;"> 
-			<% @music.take(5).each do |m| %>
-        	<h2 style="color:black;font-family: AHundredMiles;"><%= m.name %></h2>
- 			<% end %>
-		</div>           
-		</div>
+			<div style="position:relative;top:142px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:center;width:400px;left:33px;"> 
+				<% @music.take(5).each do |m| %>
+	        	<h2 style="color:black;font-family: AHundredMiles;"><%= m.name %></h2>
+	 			<% end %>
+			</div>           
+	  </div>  
+	
+   <div class="step" style="width:500px;height:700px;background:url('assets/img/movieFrame.png') no-repeat;overflow:none;" data-x="<%= (rand(5)*50) %>" data-y="<%= (rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
 
+			<div style="position:relative;top:262px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:right;width:300px;left:100px;"> 
+				<% @movies.take(5).each do |m| %>
+	        	<h2 style="color:black;font-family: AHundredMiles;font-size:32px;">
+					<%= m.name %>
+				</h2>
+	 			<% end %>
+			</div>           
+	  </div>
 
 		</div>
 
@@ -102,4 +111,3 @@
 
     </body>
 </html>
-
