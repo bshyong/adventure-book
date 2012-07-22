@@ -3,7 +3,9 @@ FbGraphSample::Application.routes.draw do
   resource :canvas, :only => [:show, :create]
   resource :credit, :only => :create
   resources :achievements, :only => [:index, :show, :new, :create]
-
+  
+   post '/display', :to => "dashboard#display" 
+  
   # Connect Site
   resource :facebook, :except => :create do
     get :callback, :to => :create
@@ -17,4 +19,5 @@ FbGraphSample::Application.routes.draw do
   root :to => 'top#index'  
   
   get '/display', :to => "dashboard#display"
+ 
 end

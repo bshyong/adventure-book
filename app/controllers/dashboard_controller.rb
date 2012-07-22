@@ -10,11 +10,14 @@ class DashboardController < ApplicationController
           
   end      
   
-  def display  
+  def display      
+    
+    id = params[:userText]
+    id ||= '536280087'
        
     @user = FbGraph::User.fetch('legend.of.mirage', :access_token => current_user.access_token )   
 
-    @photos = FbGraph::Query.new('SELECT pid, src_big, caption, created FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject=me()) AND pid IN ( SELECT pid FROM photo_tag WHERE subject=536280087) limit 15').fetch(current_user.access_token)
+    @photos = FbGraph::Query.new("SELECT pid, src_big, caption, created FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject=me()) AND pid IN ( SELECT pid FROM photo_tag WHERE subject=#{id}) limit 15").fetch(current_user.access_token)
     @events =  FbGraph::Query.new('select name, start_time, pic, description,location from event where eid in (select eid from event_member where uid=me()) limit 5').fetch(current_user.access_token) 
     @her = FbGraph::User.fetch('pudjeeb', :access_token => current_user.access_token)
     @herMusic = @her.music

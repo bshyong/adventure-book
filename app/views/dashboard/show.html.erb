@@ -51,9 +51,16 @@ html{
 <%= javascript_include_tag 'jquery.shuffleLetters', 'script' %>  
 
 <div id="container"><h1>“Memory is the diary we all carry about with us.” ― Oscar Wilde</h1></div>   
- 
-<form action="/display" method="get">   
-	<input type="text" id="userText" />          
+
+<%= form_tag("/display", :method => "get") do %> 
+   <%= text_field_tag(:userText) %> 
+	<% submit_tag("Go") %>
+<% end %>
+     
+	
+       
+<form action="/display" method="get"> 
+	       
 </form>
 
 <div style="position:absolute;right:200px;">
