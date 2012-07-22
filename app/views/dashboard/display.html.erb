@@ -19,10 +19,21 @@
 
 	<% @photos.each_with_index do |p, i| %>
 		<div class="step" style="width:500px;height:550px;border:grey thick solid;background:url('<%= p['src_big'] %>')" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>">
-	        <h2 style="color:white;"><%= p['caption'] %></h2>
+			<div style="padding:15px;">
+	        	<h2 style="color:white;"><%= p['caption'] %></h2> 
+			</div>
 
 	    </div>   
 	<% end %>
+	<% @events.each_with_index do |e, i| %>
+		<div class="step" style="width:500px;height:550px;border:grey thick solid;background:url('<%= e['pic'] %>')" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
+		<div class="transbox">
+	        <h2><%= e['name'] %></h2> 
+			<h3><%= '@' unless e['location'].blank? %> <%= e['location'] %> // <%= Time.at(e['start_time']).to_date.to_formatted_s(:long) %></h3>
+			<p style="font-size:12px;"><%#= e['description'] %></p>     
+		</div>
+	   </div>   
+	<% end %>  
 			
 			
 			<!-- <div id="intro" class="step" data-x="0" data-y="0">
