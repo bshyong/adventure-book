@@ -11,12 +11,14 @@
         <!--[if lt IE 9]>
           <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
-    </head>
+
+	  <script type="text/javascript"     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBTpC05jCbTkdYgScP8qbmswFFmJqdYND0&sensor=false"></script> 
+</head>
     
-    <body>
-
+    <body onload="initialize()">
+    
 		<div id="impress" class="impress-not-supported">
-
+              
 	<% @photos.each_with_index do |p, i| %>
 	<%# image = FastImage.size(p['src_big']) %>   
 		<div class="step" style="width:<%= image[0] rescue '500px' %>px;height:<%= image[1] rescue '550px' %>px;border:#eee medium solid;background:url('assets/img/<%= cycle("frame1.JPG", "frame2.JPG") %>') no-repeat;overflow:none;" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
@@ -27,20 +29,46 @@
 				<div style="position:relative; left:11px;bottom:56px;width:448px;height:397px;overflow:none;background:url('<%= p['src_big'] %>') 50% 80% no-repeat;border:medium solid white;">
 				</div>
 			</div>
-
 	    </div>   
-	<% end %>
+	<% end %> 
+           
+	
 	<% @events.each_with_index do |e, i| %>  
 		<% image = FastImage.size(e['pic']) %>
 		<div class="step" style="width:500px;height:550px;border:grey thick solid;background:url('<%= e['pic'] %>')" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
 		<div class="transbox">
 	        <h2><%= e['name'] %></h2> 
 			<h3><%= '@' unless e['location'].blank? %> <%= e['location'] %> // <%= Time.at(e['start_time']).to_date.to_formatted_s(:long) %></h3>
-			<p style="font-size:12px;"><%#= e['description'] %></p>     
+			<p style="font-size:12px;"><%#= e['description'] %></p>    
 		</div>
-	   </div>   
-	<% end %>  
+		<div id="map_canvas_<%= i %>" style="width:400px;height:200px;z-index:9999;"></div>   
+	   </div>  
+	<% e['location'] ||= "10013" %>
+	<% end %> 
+	
+	<script> 
+	  function initialize() { 
+
+        var mapOptions = {   
+          zoom: 13,
+		  disableDefaultUI: true,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };      
+
+   <% @events.each_with_index do |e, i| %> 
+        var map_<%= i %> = new google.maps.Map(document.getElementById("map_canvas_<%= i %>"),
+            mapOptions); 
+  		    new google.maps.Geocoder().geocode({ 'address': "<%= e['location'] %>"}, function(results){
+		    map_<%= i %>.setCenter(results[0].geometry.location); 
+			});   
+	<% end %>
+	
+
+		
   
+      }
+	  </script> 
+   
 		</div>
 
 		<a id="arrowLeft" class="arrow">&lt;</a>
