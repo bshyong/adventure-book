@@ -8,13 +8,13 @@
     <![endif]-->
     <%= stylesheet_link_tag 'base', 'layout', 'gritter', controller_name %>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
-    <%= javascript_include_tag 'rails', 'jquery.gritter' %> 
+    <%= javascript_include_tag 'rails', 'jquery.gritter', 'jQuery.tubeplayer.min' %> 
     <%= csrf_meta_tag %>
     <%= yield :head %>
   </head>
   <body>
     <div id="fb-root"></div>
-    <h1><%= link_to "PROJECT_NAME", root_path %></h1>
+
     <div class="container">
       <div class="main">
         <%= yield %>
@@ -23,7 +23,7 @@
         <%= render :partial => 'layouts/sidebar' %>
       </aside>
     </div>
-    <%= render 'layouts/footer' %>
+
     <script src="http://connect.facebook.net/en_US/all.js"></script>
     <script>
       FB.init({

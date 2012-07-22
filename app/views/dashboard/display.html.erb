@@ -6,16 +6,18 @@
         
         <!-- Google Webfonts and our stylesheet -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=PT+Sans+Narrow|Open+Sans:300" />
-        <link rel="stylesheet" href="assets/css/styles.css" />
+        <link rel="stylesheet" href="assets/css/styles.css" /> 
+<%= javascript_include_tag 'jquery.shuffleLetters', 'script' %>     
         
         <!--[if lt IE 9]>
           <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
 
 	  <script type="text/javascript"     src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBTpC05jCbTkdYgScP8qbmswFFmJqdYND0&sensor=false"></script> 
+ <%= javascript_include_tag 'jQuery.tubeplayer.min', 'swfobject' %>  
 </head>
     
-    <body onload="initialize()">
+    <body onload="initialize(); init();">
     
 		<div id="impress" class="impress-not-supported">
 
@@ -38,7 +40,17 @@
 	 			<% end %>
 			</div>           
 	  </div>
-	              
+	           
+   <div class="step" style="width:615px;height:550px;background:url('assets/img/textFrame.jpg') no-repeat;overflow:none;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
+
+			<div style="position:relative;top:262px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:right;width:300px;left:100px;"> 
+	        	<h2 id="rose" style="color:black;font-family: AHundredMiles;font-size:36px;bottom:100px;left:120px;">
+                     “What i like about photographs is that they capture a moment that’s gone forever, impossible to reproduce.” ― <small>Karl Lagerfeld</small>
+				</h2>
+			</div>           
+	  </div>
+
+   
 	<% @photos.each_with_index do |p, i| %>
 	<%# image = FastImage.size(p['src_big']) %>   
 		<div class="step" style="width:<%= image[0] rescue '500px' %>px;height:<%= image[1] rescue '550px' %>px;border:#eee medium solid;background:url('assets/img/<%= cycle("frame1.JPG", "frame2.JPG", "frame3.JPG") %>') no-repeat;overflow:none;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
@@ -115,7 +127,26 @@
 		<a id="arrowLeft" class="arrow">&lt;</a>
 		<a id="arrowRight" class="arrow">&gt;</a>
 
-        <footer>
+        <footer> 
+			<div id='youtube-player-container'> </div>
+			
+	        		<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("play")'> 
+				Play video in player
+			</a>
+			<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("pause")'> 
+				Pause player 
+			</a>
+			<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("stop")'> 
+				Stop player 
+			</a>
+			<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("mute")'> 	
+				Mute player 
+			</a>
+			<a href="#" onClick='jQuery("#youtube-player-container").tubeplayer("unmute")'> 
+				Unmute player
+			</a>
+	
+	
 	        <h2>PROJECT NAME</h2>
             <a class="tzine" href="#">Created by awesome people.</a>
         </footer>
@@ -123,7 +154,31 @@
         <!-- JavaScript includes -->
 		<script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 		<script src="assets/js/impress.js"></script>
-		<script src="assets/js/script.js"></script>
+		<script src="assets/js/script.js"></script> 
+		
+		<script>
+			$('#rose').click(function(){
+			   $(this).shuffleLetters();  
+			});
+		</script>
+		
+		<script>
+		var init = function(){
+			$("#youtube-player-container").tubeplayer({
+			width: 600, // the width of the player
+			height: 450, // the height of the player
+			allowFullScreen: "true", // true by default, allow user to go full screen
+			initialVideo: "XLOMvPC1EzQ", // the video that is loaded into the player
+			preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
+			onPlay: function(id){}, // after the play method is called
+			onPause: function(){}, // after the pause method is called
+			onStop: function(){}, // after the player is stopped
+			onSeek: function(time){}, // after the video has been seeked to a defined point
+			onMute: function(){}, // after the player is muted
+			onUnMute: function(){} // after the player is unmuted
+		});     
+	}
+		</script>
 
     </body>
 </html>

@@ -1,18 +1,71 @@
-<section class="top">
-  <article>
-    <h2>Learn how to use <%= link_to "fb_graph", fb_graph_url %>!</h2>
-    <p><%= link_to "fb_graph", fb_graph_url %> is a full-stack Facebook Graph API wrapper in Ruby.</p>
-    <p>Reading the souce code (in Rails), you can learn how to authenticate facebook users using <%= link_to "fb_graph", fb_graph_url %>, how to access their profile data, how to update their status etc.</p>
-    <footer>
-      <p>NOTE: This application requires all permissions Graph API supports. If you hesitate to allow them, download source code and edit config/facebook.yml</p>
-    </footer>
-  </article>
+<style>
 
-  <article>
-    <h2>Source Code</h2>
-    <ul>
-      <li><%= link_to 'fg_graph', fb_graph_url %></li>
-      <li><%= link_to 'this sample app (Rails)', fb_graph_sample_url %></li>
-    </ul>
-  </article>
-</section>
+html{
+	/* CSS3 Multiple backgrounds with a fallback */
+	
+	background-color:#e4e4e4;
+	background:url('assets/img/bg_gradient.jpg') no-repeat center center,url('assets/img/bg_tile.jpg');
+}
+
+#container{
+	color: #555;
+	font-size: 58px;
+	margin: 0 auto;
+	padding: 200px 0 100px;
+	width: 650px;
+	position:relative;
+	min-height: 90px;
+	
+	font-family:'AHundredMiles',sans-serif;
+	text-shadow:1px 1px 0 rgba(255,255,255,0.5);
+}
+
+#container:before{
+	content: ">";
+	font-size: 50px;
+	left: -40px;
+	opacity: 0.25;
+	position: absolute;
+	text-shadow: 1px 1px 0 white;
+	top: 210px;
+}
+
+#userText{
+	background:none;
+	border:none;
+	border-bottom:1px solid #aaa;
+	
+	color: #777777;
+    display: block;
+    font-family: 'AHundredMiles',sans-serif;
+    font-size: 26px;
+    margin: 0 auto 0px;
+    padding: 10px;
+    text-align: center;
+    width: 300px;
+    outline: none;
+}
+</style>
+
+<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" type="text/css" />
+<%= javascript_include_tag 'jquery.shuffleLetters', 'script' %>  
+
+
+<div id="container"><h1>“Memory is the diary we all carry about with us.” ― Oscar Wilde</h1></div>
+
+<div style="position:absolute;right:200px;">
+<h2 style="font-family: AHundredMiles;font-size:32px;"><%= link_to "Enter", "/display", :id => 'proceed' %></h2>
+</div>
+
+
+<script>
+$(function () {
+  $('#app_request').click(function () {
+    FB.ui({
+      method: 'apprequests',
+      message: 'You should learn more about this awesome game.',
+      data: 'tracking information for the user'
+    });
+  });
+});
+</script>
