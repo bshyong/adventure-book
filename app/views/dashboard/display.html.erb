@@ -55,7 +55,7 @@
 	
 	<% @events.each_with_index do |e, i| %>  
 		<% image = FastImage.size(e['pic']) %>
-		<div class="step" style="width:500px;height:500px;border:grey thick solid;background:url('assets/img/eventFrame2.jpg');text-align:center;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
+		<div class="step" style="width:500px;height:500px;border:grey thick solid;background:url('assets/img/eventFrame.jpg');text-align:center;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
 		
 	        <h2><%= e['name'] %></h2> 
 			<h3 style="position:relative;top:428px;"><%= '@' unless e['location'].blank? %> <%= e['location'] %> <%= " // " unless e['location'].blank? %> <%= Time.at(e['start_time']).to_date.to_formatted_s(:long) %></h3>
@@ -85,6 +85,21 @@
         var map_<%= i %> = new google.maps.Map(document.getElementById("map_canvas_<%= i %>"),
             mapOptions); 
   		    new google.maps.Geocoder().geocode({ 'address': "<%= e['location'] %>"}, function(results){
+			var size = 0;
+			for(var key in results){
+				size++;
+			}          
+			
+			if(size==0){
+			   // alert("error");
+				var tmp =  new google.maps.LatLng(40.7142298, -73.9614669);
+				map_<%= i %>.setCenter(tmp);
+				var marker_<%= i %> = new google.maps.Marker({
+					      position: tmp,
+					      map: map_<%= i %>});
+				return;
+			}
+		
 		    map_<%= i %>.setCenter(results[0].geometry.location); 
 			 var marker_<%= i %> = new google.maps.Marker({
 					      position: results[0].geometry.location,
