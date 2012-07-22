@@ -23,7 +23,16 @@
     <p>Send application requests to your friends.</p>
     <p>This functionality is for iframe applications running on apps.facebook.com domain.</p>
   </article>
-</nav>
+</nav>                                                                                     
+  
+<h2>Mutual photos</h2>
+<ul>
+<% @photos.each do |p| %>
+ <li><%= image_tag(p['src_big']) %></li> 	
+ <% end %>
+
+</ul>
+  
 
 <script>
 $(function () {

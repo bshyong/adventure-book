@@ -14,5 +14,7 @@ FbGraphSample::Application.routes.draw do
   resources :subscriptions, :only => [:index, :show, :create]
   post 'subscriptions/:id', :to => 'subscriptions#update'
 
-  root :to => 'top#index'
+  root :to => 'top#index'  
+  
+  get '/display', :to => "dashboard#display"
 end
