@@ -18,14 +18,16 @@
 		<div id="impress" class="impress-not-supported">
 
 	<% @photos.each_with_index do |p, i| %>
-		<div class="step" style="width:500px;height:550px;border:grey thick solid;background:url('<%= p['src_big'] %>')" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>">
+	<% image = FastImage.size(p['src_big']) %>   
+		<div class="step" style="width:<%= image[0] rescue '500px' %>px;height:<%= image[1] rescue '550px' %>px;border:grey thick solid;background:url('<%= p['src_big'] %>') no-repeat" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>">
 			<div style="padding:15px;">
 	        	<h2 style="color:white;"><%= p['caption'] %></h2> 
 			</div>
 
 	    </div>   
 	<% end %>
-	<% @events.each_with_index do |e, i| %>
+	<% @events.each_with_index do |e, i| %>  
+		<% image = FastImage.size(e['pic']) %>
 		<div class="step" style="width:500px;height:550px;border:grey thick solid;background:url('<%= e['pic'] %>')" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
 		<div class="transbox">
 	        <h2><%= e['name'] %></h2> 
