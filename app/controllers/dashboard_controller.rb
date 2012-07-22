@@ -3,10 +3,10 @@ class DashboardController < ApplicationController
   
   def show   
 
-     @posts = current_user.profile.home 
+    # @posts = current_user.profile.home 
     
-     @user = FbGraph::User.fetch('bshyong', :access_token => current_user.access_token )   
-     @photos = FbGraph::Query.new('SELECT pid, src_big, caption, created FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject=me()) AND pid IN ( SELECT pid FROM photo_tag WHERE subject=1248270527)').fetch(current_user.access_token)
+   #@user = FbGraph::User.fetch('bshyong', :access_token => current_user.access_token )   
+   #  @photos = FbGraph::Query.new('SELECT pid, src_big, caption, created FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject=me()) AND pid IN ( SELECT pid FROM photo_tag WHERE subject=1248270527)').fetch(current_user.access_token)
           
   end      
   
