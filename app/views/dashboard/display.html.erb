@@ -18,10 +18,30 @@
     <body onload="initialize()">
     
 		<div id="impress" class="impress-not-supported">
-              
+
+   <div class="step" style="width:500px;height:700px;background:url('assets/img/musicFrame.png') no-repeat;overflow:none;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
+
+			<div style="position:relative;top:142px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:center;width:400px;left:33px;"> 
+				<% @music.take(5).each do |m| %>
+	        	<h2 style="color:black;font-family: AHundredMiles;"><%= m.name %></h2>
+	 			<% end %>
+			</div>           
+	  </div>  
+
+   <div class="step" style="width:500px;height:700px;background:url('assets/img/movieFrame.png') no-repeat;overflow:none;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
+
+			<div style="position:relative;top:262px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:right;width:300px;left:100px;"> 
+				<% @movies.take(5).each do |m| %>
+	        	<h2 style="color:black;font-family: AHundredMiles;font-size:32px;">
+					<%= m.name %>
+				</h2>
+	 			<% end %>
+			</div>           
+	  </div>
+	              
 	<% @photos.each_with_index do |p, i| %>
 	<%# image = FastImage.size(p['src_big']) %>   
-		<div class="step" style="width:<%= image[0] rescue '500px' %>px;height:<%= image[1] rescue '550px' %>px;border:#eee medium solid;background:url('assets/img/<%= cycle("frame1.JPG", "frame2.JPG", "frame3.JPG") %>') no-repeat;overflow:none;" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
+		<div class="step" style="width:<%= image[0] rescue '500px' %>px;height:<%= image[1] rescue '550px' %>px;border:#eee medium solid;background:url('assets/img/<%= cycle("frame1.JPG", "frame2.JPG", "frame3.JPG") %>') no-repeat;overflow:none;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
 			<div style="padding:15px;"> 
 			<div style="position:relative;top:450px;background:white;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:center;">
 	        	<h2 style="color:black;font-family: AHundredMiles;"><%= p['caption'] %></h2> 
@@ -35,7 +55,7 @@
 	
 	<% @events.each_with_index do |e, i| %>  
 		<% image = FastImage.size(e['pic']) %>
-		<div class="step" style="width:500px;height:500px;border:grey thick solid;background:url('assets/img/eventFrame2.jpg');text-align:center;" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
+		<div class="step" style="width:500px;height:500px;border:grey thick solid;background:url('assets/img/eventFrame2.jpg');text-align:center;" data-x="<%= random_spacing  %>" data-y="<%= random_spacing  %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
 		
 	        <h2><%= e['name'] %></h2> 
 			<h3 style="position:relative;top:428px;"><%= '@' unless e['location'].blank? %> <%= e['location'] %> <%= " // " unless e['location'].blank? %> <%= Time.at(e['start_time']).to_date.to_formatted_s(:long) %></h3>
@@ -73,26 +93,7 @@
 	<% end %>
       }
 	  </script> 
-        
-   <div class="step" style="width:500px;height:700px;background:url('assets/img/musicFrame.png') no-repeat;overflow:none;" data-x="<%= (rand(5)*50) %>" data-y="<%= (rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
-
-			<div style="position:relative;top:142px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:center;width:400px;left:33px;"> 
-				<% @music.take(5).each do |m| %>
-	        	<h2 style="color:black;font-family: AHundredMiles;"><%= m.name %></h2>
-	 			<% end %>
-			</div>           
-	  </div>  
-	
-   <div class="step" style="width:500px;height:700px;background:url('assets/img/movieFrame.png') no-repeat;overflow:none;" data-x="<%= (rand(5)*50) %>" data-y="<%= (rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(360) %>">
-
-			<div style="position:relative;top:262px;background:none;opacity:0.7;border-radius:20px;padding:0px 12px;text-align:right;width:300px;left:100px;"> 
-				<% @movies.take(5).each do |m| %>
-	        	<h2 style="color:black;font-family: AHundredMiles;font-size:32px;">
-					<%= m.name %>
-				</h2>
-	 			<% end %>
-			</div>           
-	  </div>
+  
 
 		</div>
 
