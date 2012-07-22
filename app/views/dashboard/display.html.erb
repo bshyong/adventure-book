@@ -35,13 +35,13 @@
 	
 	<% @events.each_with_index do |e, i| %>  
 		<% image = FastImage.size(e['pic']) %>
-		<div class="step" style="width:500px;height:550px;border:grey thick solid;background:url('<%= e['pic'] %>')" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
-		<div class="transbox">
+		<div class="step" style="width:500px;height:500px;border:grey thick solid;background:url('assets/img/eventFrame2.jpg');text-align:center;" data-x="<%= 300*(i)+(rand(5)*50) %>" data-y="<%= (i*300)+(rand(5)*50) %>" data-scale="<%= 1 + rand() %>" data-rotate="<%= rand(350) %>"> 
+		
 	        <h2><%= e['name'] %></h2> 
-			<h3><%= '@' unless e['location'].blank? %> <%= e['location'] %> // <%= Time.at(e['start_time']).to_date.to_formatted_s(:long) %></h3>
+			<h3 style="position:relative;top:420px;"><%= '@' unless e['location'].blank? %> <%= e['location'] %> <%= " // " unless e['location'].blank? %> <%= Time.at(e['start_time']).to_date.to_formatted_s(:long) %></h3>
 			<p style="font-size:12px;"><%#= e['description'] %></p>    
-		</div>
-		<div id="map_canvas_<%= i %>" style="width:400px;height:200px;z-index:9999;"></div>   
+
+		<div id="map_canvas_<%= i %>" style="width:498px;height:235px;position:relative;bottom:55px;"></div>   
 	   </div>  
 	<% e['location'] ||= "10013" %>
 	<% end %> 
@@ -60,7 +60,10 @@
             mapOptions); 
   		    new google.maps.Geocoder().geocode({ 'address': "<%= e['location'] %>"}, function(results){
 		    map_<%= i %>.setCenter(results[0].geometry.location); 
-			});   
+			 var marker_<%= i %> = new google.maps.Marker({
+					      position: results[0].geometry.location,
+					      map: map_<%= i %>});
+			});    
 	<% end %>
 	
 
