@@ -16,7 +16,10 @@ class DashboardController < ApplicationController
 
     @photos = FbGraph::Query.new('SELECT pid, src_big, caption, created FROM photo WHERE pid IN (SELECT pid FROM photo_tag WHERE subject=me()) AND pid IN ( SELECT pid FROM photo_tag WHERE subject=1248270527)').fetch(current_user.access_token)
     @events =  FbGraph::Query.new('select name, start_time, pic, description,location from event where eid in (select eid from event_member where uid=1084230387)').fetch(current_user.access_token) 
-
+    @her = FbGraph::User.fetch('kentchen915', :access_token => current_user.access_token)
+    @herMusic = @her.music
+    @music = @user.music | @her.music
+    @music.shuffle!
 
     render :layout => false
   end
